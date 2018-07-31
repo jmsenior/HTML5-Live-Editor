@@ -1,0 +1,176 @@
+
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<style>
+
+.css::-webkit-scrollbar,.js::-webkit-scrollbar {
+    width: 10px;
+}
+
+.css::-webkit-scrollbar-track,.js::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey; 
+    border-radius: 10px;
+}
+ 
+.css::-webkit-scrollbar-thumb,.js::-webkit-scrollbar-thumb {
+    background: orange; 
+    border-radius: 10px;
+}
+
+.css::-webkit-scrollbar-thumb:hover,.js::-webkit-scrollbar-thumb:hover {
+    background: yellow;
+}
+
+[data-theme="dark"] {
+  --fg:         hsl(0,10%,70%);
+  --border:     hsl(0,10%,10%);
+  
+  --body:         hsl(0,0%,5%);
+  --bgblock:      hsl(0,0%,90%);
+  --bg:         hsl(0,0%,20%);
+  --button-bg:  hsl(0,0%,25%);
+  --input-bg:   hsl(0,0%,15%);
+  --h2: hsl(36,90%,48%);
+  --font: Arial,Helvetica,sans-serif;
+  --code: Courier New,courier,monoscape;
+}
+
+style, #jscontainer{
+	display:block;
+	padding:20px;
+	white-space:pre-line;
+}
+
+section {
+	
+	display: grid;
+	grid-template-columns: 50px 1fr 1fr 50px;
+	grid-template-rows:350px 200px;
+	grid-gap:20px;
+	grid-template-areas:". c j ."
+						". b b .";
+	
+}
+.css h2, .js h2{
+	writing-mode: vertical-lr;
+	color: var(--h2);
+	font-family: var(--font);
+	margin: 5px !important;
+
+}
+.block h2{
+	font-family: var(--font);
+}
+div{
+	border-radius: 5px;
+}
+body{
+	background: var(--body);
+}
+.block{
+	grid-area:b;
+	background: var(--bgblock);
+	border: var(--border);
+	font-family: var(--code);
+	font-weight:900;
+	box-shadow:0px 0px 5px rgba(0,0,0,.7) inset;
+}
+.css{
+	grid-area:c;
+	background: var(--bg);
+	font-family: var(--code);
+	color:orange;
+	
+	overflow-y: auto;
+}
+
+.js{
+	grid-area:j;
+	background: var(--bg);	
+	font-family: var(--code);
+	color:orange;
+	
+	overflow-y: auto;
+}
+
+
+</style>
+
+</head>
+
+<body data-theme="dark">
+
+<section>
+
+	<div class="block">
+		<h2 contenteditable>RESULT</h2>
+		<div class="result">
+		</div>
+		
+	</div>
+	<div class="css">
+		<h2>CSS</h2>
+		<style contenteditable>
+		/***** insert lines with Shift + Enter *****/
+			
+			.result{
+				display: flex;
+				justify-content: space-around;
+			}
+			.result div{
+				height: 100px;
+				width:100px;
+				background:#bababa;
+				text-align:center;
+
+				-webkit-transition:all .3s ease-in-out;
+				-moz-transition:all .3s ease-in-out;
+			}
+			.result div:hover{
+				border-radius: 100%;
+				border:3px solid #353230;
+
+				-webkit-transition:all .3s ease-in-out;
+				-moz-transition:all .3s ease-in-out;
+			}
+		</style>
+	</div>
+	<div class="js">
+		<h2>JS</h2>
+		<script id="jscontainer" contenteditable>
+			function createBlock() {
+
+				var content = document.querySelector('.result');
+
+					for(var i=0; i < 3 ; i++){
+						content.innerHTML += '<div><p>Content'+ [i] +'</p></div>'
+					}
+
+			}
+
+
+		</script>
+		<script>
+			
+
+			var jscontent = document.querySelector('#jscontainer');
+
+			jscontent.onkeyup = function(e){
+				var content = document.querySelector('.result');
+				//content.innerHTML = '';
+				createBlock(); 
+			};
+			
+		</script>
+	</div>
+
+
+
+
+</section>
+
+
+</body>
+</html>
